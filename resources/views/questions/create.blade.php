@@ -14,11 +14,16 @@
                    </div>    
                 </div>
                 <div class="card-body">
-                    <form action="{{route('questions.store')}}" method="post">
+                    <form action="{{ ($question->id) ? route('questions.update', $question->id ) : route('questions.store') }}" method="post">
                         @csrf
+                        @if($question->id)
+                            @method('PUT')
+                        @else
+                            @method('POST')
+                        @endif
                         <div class="form-group">
                             <label for="q_title">Question Title </label>
-                            <input type="text" name="title" id="q_title" value="{{ old('title') }}" class="form-control {{$errors->has('title') ? 'is-invalid' : ''}}">
+                            <input type="text" name="title" id="q_title" value="{{ old('title', $question->title) }}" class="form-control {{$errors->has('title') ? 'is-invalid' : ''}}">
                             @if($errors->has('title'))
                                 <div class="invalid-feedback">
                                     <strong>{{$errors->first('title')}}</strong>
@@ -27,7 +32,7 @@
                         </div>
                         <div class="form-group">
                             <label for="q_body">Explan Your Question </label>
-                            <textarea name="body" id="q_body" rows="5" class="form-control {{$errors->has('body') ? 'is-invalid' : ''}}">{{ old('body') }}</textarea>
+                            <textarea name="body" id="q_body" rows="5" class="form-control {{$errors->has('body') ? 'is-invalid' : ''}}">{{ old('body' , $question->title) }}</textarea>
                             @if($errors->has('body'))
                                 <div class="invalid-feedback">
                                     <strong>{{$errors->first('body')}}</strong>
