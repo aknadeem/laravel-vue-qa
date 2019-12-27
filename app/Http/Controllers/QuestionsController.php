@@ -19,7 +19,18 @@ class QuestionsController extends Controller {
     public function index() {
 
         //\DB::enableQueryLog();
-        $questions = Question::with('user')->latest()->paginate(5);
+        \DB::disableQueryLog();
+
+
+$questions = Question::with([
+    'user' => function($query){
+          $query->select('id', 'name'); #
+    }
+])->latest()->paginate(5,['id','title','slug','body','views','answers_count','votes','user_id','created_at']);
+
+
+
+        //$questions = Question::with('user')->latest()->paginate(5);
         return view('questions.index',compact('questions'));
 
         //view('questions.index',compact('questions'))->render();
@@ -32,6 +43,7 @@ class QuestionsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
+        \DB::disableQueryLog();
         $question = new Question();
         return view('questions.create',compact('question'));
     }
@@ -43,6 +55,7 @@ class QuestionsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(AskQuestionRequest $request) {
+        \DB::disableQueryLog();
         $request->user()->questions()->create($request->only('title','body'));
         return redirect()->route('questions.index')->with('success','Your Question has been Submitted');
     }
@@ -54,6 +67,7 @@ class QuestionsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Question $question) {
+        \DB::disableQueryLog();
         $question->increment('views');
         return view('questions.show', compact('question'));
     }
@@ -68,6 +82,7 @@ class QuestionsController extends Controller {
         // if(\Gate::denies('update-question', $question)){
         //     abort(403, "Access Denied");
         // }
+        \DB::disableQueryLog();
         $this->authorize("update", $question);
         return view('questions.create',compact('question'));
     }
@@ -83,6 +98,7 @@ class QuestionsController extends Controller {
         // if(\Gate::denies('update-question', $question)){
         //     abort(403, "Access Denied");
         // }
+        \DB::disableQueryLog();
         $this->authorize("update", $question); 
         $question->update($request->only('title','body'));
         return redirect()->route('questions.index')->with('success','Your Question has been Updated');
@@ -99,6 +115,7 @@ class QuestionsController extends Controller {
         // if(\Gate::denies('delete-question', $question)){
         //     abort(403, "Access Denied");
         // }
+        \DB::disableQueryLog();
         $this->authorize("delete", $question);
         $question->delete();
         return redirect()->route('questions.index')->with('success','Your Question has been Deleted ');

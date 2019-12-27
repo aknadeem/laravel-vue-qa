@@ -9,7 +9,7 @@
                    <div class="d-flex align-items-center">
                        <h4>Ask Question</h4>
                        <div class="ml-auto">
-                           <a href="{{route('questions.index')}}" class="btn btn-outline-primary"> Back TO All Questions </a>
+                           <a href="{{route('questions.index')}}" class="btn btn-outline-primary"> Back To All Questions </a>
                        </div>
                    </div>    
                 </div>
@@ -47,5 +47,10 @@
             </div>
         </div>
     </div>
+    <script>
+        window.onload = function() {
+            document.getElementById("q_title").focus();
+        }
+    </script>
 </div>
 @endsection
