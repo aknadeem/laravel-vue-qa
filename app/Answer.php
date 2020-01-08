@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model {
     
-    protected $fillable = ['title','body'];
+    protected $fillable = ['title','body','user_id'];
 	protected $dates = ['created_at'];
 	
     public function question(){
