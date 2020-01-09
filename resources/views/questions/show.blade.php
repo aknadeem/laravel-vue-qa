@@ -16,7 +16,7 @@
                 </div>
                 <hr>
                 <div class="media">
-                  <div class="d-flex flex column vote-controls">
+                  <div class="d-fex flex column vote-controls">
                     <a title="This question is useful " class="vote-up"> 
                       <i class="fas fa-caret-up fa-3x"></i>
                        <span class="votes-count">1234</span>
