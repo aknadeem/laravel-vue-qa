@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Answer;
+use App\Question;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -55,5 +57,10 @@ class User extends Authenticatable
         $email = $this->email;        
         $size = 32;
         return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?s=" . $size;
+    }
+
+    public function favourites()
+    {
+        return $this->belongsToMany(Question::class,'favourites')->withTimestamps();// ,'user_id','question_id'); to defined particular foreign id
     }
 }

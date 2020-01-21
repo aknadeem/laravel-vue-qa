@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Answer;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -46,5 +48,25 @@ class Question extends Model {
     public function acceptBestAnswer(Answer $answer){
         $this->best_answer_id = $answer->id;
         $this->save();
+    }
+
+    public function favourites()
+    {
+        return $this->belongsToMany(User::class,'favourites')->withTimestamps();// ,'question_id','user_id'); to defined particular foreign id
+    }
+
+    public function isFavourited()
+    {
+        return $this->favourites()->where('user_id',auth()->id())->count() > 0;
+    }
+
+    public function getIsFavouritedAttribute()
+    {
+        return $this->isFavourited();
+    }
+
+    public function getFavouritesCountAttribute()
+    {
+        return $this->favourites->count();
     }
 }
