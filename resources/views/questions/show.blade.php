@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-body">
                   <div class="card-title">
@@ -17,15 +17,26 @@
                 <hr>
                 <div class="media">
                   <div class="d-fex flex column vote-controls">
-                    <a title="This question is useful " class="vote-up"> 
+                    <a title="This question is useful" 
+                        class="vote-up {{ Auth::guest() ? 'off' : ''}}"
+                        onclick="event.preventDefault(); document.getElementById('up-vote-question-{{$question->id}}').submit();"
+                      > 
                       <i class="fas fa-caret-up fa-3x"></i>
-                       <span class="votes-count">1234</span>
                     </a>
-                   <br>
-                    <a title="This question is not useful" class="vote-down off">   <i class="fas fa-caret-down fa-3x"></i>
-                      <span>12</span>
+                    <form id='up-vote-question-{{$question->id}}' action="/questions/{{$question->id}}/vote" method="POST" style='display:none;'>
+                      @csrf
+                      <input type="hidden" name="vote" value="1">
+                    </form>
+                    <span class="votes-count">{{$question->votes_count}}</span>
+                    <a title="This question is not useful" 
+                        class="vote-down {{ Auth::guest() ? 'off' : ''}}"
+                        onclick="event.preventDefault(); document.getElementById('down-vote-question-{{$question->id}}').submit();"
+                        ><i class="fas fa-caret-down fa-3x"></i>
                     </a>
-                    <br>
+                    <form id='down-vote-question-{{$question->id}}' action="/questions/{{$question->id}}/vote" method="POST" style='display:none;'>
+                      @csrf
+                      <input type="hidden" name="vote" value="-1">
+                    </form>
                     <a title="Mark to as favorite question (Click again to undo)" class="favorite mt-2 {{ Auth::guest() ? 'off' : ($question->is_favourited ? 'favorited' : '') }} " onclick="event.preventDefault(); document.getElementById('favourite-question-{{$question->id}}').submit();"> 
                       <i class="fas fa-star fa-2x"></i>
                       <span class="favorite-counts">{{$question->favourites_count}}</span>

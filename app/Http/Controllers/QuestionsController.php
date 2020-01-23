@@ -26,7 +26,7 @@ $questions = Question::with([
     'user' => function($query){
           $query->select('id', 'name'); 
     }
-])->latest()->paginate(5,['id','title','slug','body','views','answers_count','votes','user_id','created_at']);
+])->latest()->paginate(5,['id','title','slug','body','views','answers_count','votes_count','user_id','created_at']);
 
 //dd($questions->toArray());
 
