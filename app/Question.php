@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 
 class Question extends Model {
 
+    use VotableTrait;
+     
 	protected $fillable = ['title','body'];
 	protected $dates = ['created_at'];
     
@@ -68,20 +70,5 @@ class Question extends Model {
     public function getFavouritesCountAttribute()
     {
         return $this->favourites->count();
-    }
-
-    public function votes()
-    {
-       return $this->morphToMany(User::class, 'votable');
-    }
-
-    public function downVotes()
-    {
-        return $this->votes()->wherePivot('vote' ,-1);
-    }
-
-    public function upVotes()
-    {
-        return $this->votes()->wherePivot('vote' ,1);
     }
 }
