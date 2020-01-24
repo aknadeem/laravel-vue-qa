@@ -10,7 +10,7 @@
                    <div class="d-flex align-items-center">
                        <h2>{{$question->title}}</h2>
                        <div class="ml-auto">
-                           <a href="{{route('questions.index')}}" class="btn btn-outline-primary"> Back TO All Questions </a>
+                           <a href="{{route('questions.index')}}" class="btn btn-outline-primary"> Back To All Questions </a>
                        </div>
                    </div>    
                 </div>

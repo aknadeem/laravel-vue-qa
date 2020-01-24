@@ -53,7 +53,7 @@
                                         {{$question->created_date}}
                                     </small>
                                 </div>
-                                {{ Str::limit($question->body, 200)}}
+                                {{ $question->excerpt(250)}}
                             </div>
                         </div>
                         <hr>
