@@ -69,6 +69,7 @@ $questions = Question::with([
     public function show(Question $question) {
         \DB::disableQueryLog();
         $question->with('answers.user')->increment('views');
+        //$question->increment('views');
         return view('questions.show', compact('question'));
     }
 

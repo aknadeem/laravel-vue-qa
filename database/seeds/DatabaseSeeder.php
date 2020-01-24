@@ -7,7 +7,7 @@ class DatabaseSeeder extends Seeder
     // Seed the application's database.
     public function run() {
         $this->call([
-            UsersQuestionsAnswersTableSeeder::class,;
+            UsersQuestionsAnswersTableSeeder::class,
             FavouritesTableSeeder::class,
             VotablesTableSeeder::class,
         ]);
