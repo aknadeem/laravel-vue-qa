@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+
+    protected $appends = ['url','avatar'];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -43,7 +46,7 @@ class User extends Authenticatable
         return $this->hasMany(Question::class);
     }
 
-    public function grtUrlAttribute(){
+    public function getUrlAttribute(){
         //return route("questions.show", $this->id);
         return '#';
     } 
