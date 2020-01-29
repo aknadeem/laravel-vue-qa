@@ -11,7 +11,7 @@ class Answer extends Model {
     protected $fillable = ['title','body','user_id'];
 	protected $dates = ['created_at'];
 
-    protected $appends = ['created_date','body_html'];
+    protected $appends = ['created_date','body_html','is_best'];
 	
     public function question(){
     	return $this->belongsTo(Question::class);
