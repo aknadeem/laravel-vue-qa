@@ -22,23 +22,6 @@
 			}
 		},
 
-		computed: {
-			canAccept () {
-				return true;
-			},
-
-			accepted () {
-				return !this.canAccept && this.isBest;
-			},
-
-			classes () {
-				return [
-					'mt-2',
-					this.isBest ? 'vote-accepted' : ''
-				];
-			}
-		},
-
 		methods: {
 			create ()  {
 				axios.post(`/answers/${this.id}/accept`)
@@ -50,6 +33,23 @@
 
 					this.isBest = true;
 				})
+			}
+		},
+
+		computed: {
+			canAccept () {
+				return this.authorize('accept', this.answer);
+			},
+
+			accepted () {
+				return !this.canAccept && this.isBest;
+			},
+
+			classes () {
+				return [
+					'mt-2',
+					this.isBest ? 'vote-accepted' : ''
+				];
 			}
 		}
 	}
